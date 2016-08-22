@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\god\documents\combatsimdev\combatsimgame\combatsimgame\gamehandler.h(60): warning C4930: 'player gameplayer(void)': prototyped function not called (was a variable definition intended?)
+  combatSimGame.vcxproj -> C:\Users\God\Documents\combatSimDev\combatSimGame\Debug\combatSimGame.exe
+  combatSimGame.vcxproj -> C:\Users\God\Documents\combatSimDev\combatSimGame\Debug\combatSimGame.pdb (Full PDB)
