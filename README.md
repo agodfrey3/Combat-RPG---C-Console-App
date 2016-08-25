@@ -11,6 +11,7 @@ Combat RPG C++ Console Application
 -Basic skeleton created and very simple inventory was set up. Limited features. Still very early in production. 
 
 **To Do**
+-
 - 1) Add more functionality to selection tool
 - 2) Create selection tools for equipted item menu
 - 3) Create monsters
