@@ -120,7 +120,7 @@ void gameHandler::displayList(list<item*> &itemList)
 			it++;
 		} while (it != itemList.end());
 		cout << "Would you like to enter select mode?\n"
-			 << "\t Enter yes or no ( y/n)\n";
+			 << "\t Enter yes or no ( y/n )\n";
 		string x;
 		cin >> x;
 		if (x == "y" || x == "yes" || x == "Yes")
@@ -190,7 +190,7 @@ void gameHandler::selectorMenu(list<item*> itemList)
 	cout << "Use the following commands to navigate...\n"
 		<< "\tw to move the selector up\n"
 		<< "\ts to move the selector down\n"
-		<< "\td to select and item\n"
+		<< "\td to select an item\n"
 		<< "\ta to go back to the game menu\n\n";
 	
 	switch (_getch())
