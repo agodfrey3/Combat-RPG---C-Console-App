@@ -2,6 +2,7 @@
 Combat RPG C++ Console Application
 
 **Updates**
+-
 **8-24-2016**
 -Created a basic selection tool for the player inventory, as well as a selection tool which displays information about the selected weapon.
   This tool will eventually house other features, such as equiping, dropping, or examining an item. 
