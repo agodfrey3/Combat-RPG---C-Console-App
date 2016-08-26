@@ -18,9 +18,12 @@ class gameHandler {
 		void selectorMenu(list<item*> itemList);
 		void displayList(list<item*> &itemList);
 		void itemSelected(int selectorIndex, list<item*> list);
+<<<<<<< HEAD
 		void doFight(Model &player1, Model &enemy);
 		monster chooseMonster(Model &gameplayer);
 		void findBattle(Model &gamePlayer);
+=======
+>>>>>>> origin/master
 };
 void gameHandler::createPlayer()
 {
@@ -28,6 +31,7 @@ void gameHandler::createPlayer()
 	player gameplayer;
 	createWeapon("Rusty Sword", 1 ,inventory);
 	createFood("Apple", 1, 5 ,inventory);
+<<<<<<< HEAD
 }
 void gameHandler::doFight(Model &player1, Model &enemy)
 {
@@ -105,6 +109,8 @@ monster gameHandler::chooseMonster(Model &gameplayer)
 void gameHandler::findBattle(Model &gamePlayer)
 {
 	doFight(gamePlayer, chooseMonster(gamePlayer));
+=======
+>>>>>>> origin/master
 }
 void gameHandler::gameMenu()
 {
@@ -321,4 +327,8 @@ void gameHandler::itemSelected(int selectorIndex, list<item*> itemList)
 		<< "\n\tPress any key to return to the selector menu\n";
 	_getch();
 	selectorMenu(itemList);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master
