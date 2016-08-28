@@ -29,7 +29,7 @@ Combat RPG C++ Console Application
 
 **Language used** 
 - C++ ( using Visual Studio )
-- I use many functions native to Microsoft and VS only, and thus do not intend for this to be incredibly portable.
+- There are currently some Microsoft-only features, and so these will be eliminated once most of the game has been brought to a playable point, so as to allow for a more portable game ( able to be played on Linux, etc. ). Efficiency will also be improved once the majority of the game has reached a playable state. 
 
 -Please Feel free to give suggestions on content, or to leave any other feedback. 
 
