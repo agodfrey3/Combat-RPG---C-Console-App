@@ -3,6 +3,9 @@ Combat RPG C++ Console Application
 
 **Updates**
 -
+**8-29-2016**
+-Video of Update: https://www.youtube.com/watch?v=lORIn4m3C_c
+-Added a system to both equip and display equipped items. The combat interface has also been updated slightly, however, more imporvements will be made to both the equip screens, and the combat interface, as well as combat itself. Some bug fixes were also implemented, such as fixing memory leaks and eliminating unused variables. 
 **8-24-2016**
 -Video of current progress: https://youtu.be/adg2gKx8lwY
 - Created a basic selection tool for the player inventory, as well as a selection tool which displays information about the selected weapon.
