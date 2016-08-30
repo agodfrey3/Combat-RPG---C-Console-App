@@ -2,6 +2,7 @@ class item {
 	public:
 		string id;
 		int stat;
+		int useVal;
 
 		item(string id);
 		item(string id, int stat);
@@ -11,6 +12,7 @@ class item {
 
 item::item(string itemID)
 {
+	useVal = 5;
 	id = itemID;
 }
 item::item(string itemID, int itemStat)
@@ -24,5 +26,5 @@ string item::getName()
 }
 string item::getStat()
 {
-	return "Item Stats";
+	return "Item Stats: ";
 }
