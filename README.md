@@ -39,3 +39,5 @@ Combat RPG C++ Console Application
 
 -Please Feel free to give suggestions on content, or to leave any other feedback. 
 
+-Note: gameHandler is the main class used. The main.cpp is simply a driver
+
