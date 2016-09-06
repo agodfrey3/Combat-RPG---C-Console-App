@@ -11,32 +11,32 @@ class gameHandler {
 		list<item*> inventory;
 		list<item*> equipped;
 		
-		void gameInit();
-		void gameMenu();
-		void createPlayer();
-		void createWeapon(string id, int dmg, list<item*> &list);
-		void createFood(string id, int boost, int qty,list<item*> &list);
-		void createItem(string id, int stat, list<item*> &list);
+		void gameInit();//Initializes game ( player, lists, gets playter name, and then goes to menu)
+		void gameMenu();//Main Menu that allows usage of all game funtions
+		void createPlayer();//creates player, as well as a preliminary inventory
+		void createWeapon(string id, int dmg, list<item*> &list);//creates a weapon and puts it in the player's inventory
+		void createFood(string id, int boost, int qty,list<item*> &list);//creates food and puts it in the player's inventory
+		void createItem(string id, int stat, list<item*> &list);//creates an item and puts it in the player's inventory
 
-		void addtoEquipped(string id, item gameItem, list<item*> &equipped);
-		void selectorMenu(list<item*> itemList,int key);
-		void displayList(list<item*> &itemList, int key);
-		void itemSelected(int selectorIndex, list<item*> list, int key);
-		void doFight(Model &player1, Model &enemy, list<item*> inventory);
-		void findBattle(Model &gamePlayer, list<item*> inventory);
-		int  fightMenu(Model gamePlayer, list<item*> inventory, Model enemy);
-		monster chooseMonster(Model &gameplayer);
+		void addtoEquipped(string id, item gameItem, list<item*> &equipped);//adds item to the equipped items list
+		void selectorMenu(list<item*> itemList,int key);//Creates and populates a menu for selection
+		void displayList(list<item*> &itemList, int key);//Displays any list that is passed as a param, as well as a key to tell where the list is being accessed from
+		void itemSelected(int selectorIndex, list<item*> list, int key);//Displays the item you have selected, as well as some information about it
+		void doFight(Model &player1, Model &enemy, list<item*> inventory);//Handles the actual combat between player and monster
+		void findBattle(Model &gamePlayer, list<item*> inventory);//finds a battle for the player
+		int  fightMenu(Model gamePlayer, list<item*> inventory, Model enemy);//Handles the fighting menu system
+		monster chooseMonster(Model &gameplayer);//chooses an opponent based on the game player's stats
 };
-void gameHandler::createPlayer()
+void gameHandler::createPlayer()//creates player, as well as a preliminary inventory
 {
 	inventorySize = 0;
 	player gameplayer;
 	createWeapon("Rusty Sword", 1 ,inventory);
 	createFood("Apple", 1, 5 ,inventory);
 }
-void gameHandler::doFight(Model &player1, Model &enemy, list<item*> inventory)
+void gameHandler::doFight(Model &player1, Model &enemy, list<item*> inventory)//Handles the actual combat between player and monster
 {
-	int enemyAttack   = enemy.defence;
+	int enemyAttack   = enemy.defence;//sets backup values in case of stat changing abilities ( after x turns, they return to normal)
 	int enemyDefence  = enemy.attack;
 	int playerAttack  = player1.attack;
 	int playerDefence = player1.defence;
@@ -101,7 +101,7 @@ void gameHandler::doFight(Model &player1, Model &enemy, list<item*> inventory)
 	_getch();
 	gameMenu();
 }
-int gameHandler::fightMenu(Model gamePlayer, list<item*> inventory, Model enemy)
+int gameHandler::fightMenu(Model gamePlayer, list<item*> inventory, Model enemy)//Handles the fighting menu system
 {
 	string result;
 	cout << "---------YOU ARE IN BATTLE!----------\n";
@@ -109,24 +109,24 @@ int gameHandler::fightMenu(Model gamePlayer, list<item*> inventory, Model enemy)
 	char choiceList[3];
 	bool selected = false;
 	bool exit     = false;
-	do
+	do//Main combat system
 	{
 		system("CLS");
 		cout << "    Enemy: " << enemy.name << endl
 			 << "Player hp: " << gamePlayer.health << endl
 		     << " Enemy hp: " << enemy.health << endl;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 3; i++)//Prepares menu
 		{
 			if (i == selectorIndex2)
 				choiceList[i] = '>';
 			else
 				choiceList[i] = ' ';
 		}
-		cout << choiceList[0] << "Attack " << choiceList[1] << "Defend " << choiceList[2] << "Inventory \n";
+		cout << choiceList[0] << "Attack " << choiceList[1] << "Defend " << choiceList[2] << "Inventory \n";//Displays options
 		char input = _getch();
 		switch (input)
 		{
-		case ('a'):
+		case ('a')://handles input from player on the menu
 			if (selectorIndex2 == 0)
 				selectorIndex2 = 2;
 			else
@@ -148,7 +148,7 @@ int gameHandler::fightMenu(Model gamePlayer, list<item*> inventory, Model enemy)
 			break;
 		}
 	} while (!selected && !exit);
-	if (choiceList[0] == '>')
+	if (choiceList[0] == '>')//returns the selected choice
 		return 0;
 	else if (choiceList[1] == '>')
 		return 1;
@@ -157,7 +157,7 @@ int gameHandler::fightMenu(Model gamePlayer, list<item*> inventory, Model enemy)
 	else
 		return 3;
 }
-monster gameHandler::chooseMonster(Model &gameplayer)
+monster gameHandler::chooseMonster(Model &gameplayer)//chooses an opponent based on the game player's stats
 {
 	if (gameplayer.level <= 2)
 	{
@@ -166,24 +166,24 @@ monster gameHandler::chooseMonster(Model &gameplayer)
 	}
 	else
 	{
-		Spider *enemy = new Spider("Spider", gameplayer.level);
+		Spider *enemy = new Spider("Spider", gameplayer.level);// Will eventually contain a list of monsters to choose from. For now, a spider is the only enemy
 		return *enemy;
 	}
 
 }
-void gameHandler::findBattle(Model &gamePlayer, list<item*> inventory)
+void gameHandler::findBattle(Model &gamePlayer, list<item*> inventory)//finds a battle for the player
 {
 
 	doFight(gamePlayer, chooseMonster(gamePlayer), inventory);
 }
-void gameHandler::gameMenu()
+void gameHandler::gameMenu()//Main Menu that allows usage of all game funtions
 {
 	input = 0;
 	char choice;
-	selectorIndex  = 0;
-	selectorIndex2 = 0;
+	selectorIndex  = 0;//selector for inventory functions
+	selectorIndex2 = 0;//selector for attack function
 	system("CLS");
-	cout << "---What would you like to do now?" << endl;
+	cout << "---What would you like to do now?" << endl;//Dispalys options
 	cout << "                            \n\n"
 		<< "GAME MENU:                   \n  "
 		<< "\t1 - See Inventory          \n  "
@@ -200,7 +200,7 @@ void gameHandler::gameMenu()
 		input++;
 	}
 	cout << endl;
-	switch (choice)
+	switch (choice)//Performs task based on player's choice
 	{
 	case ('1'):
 		displayList(inventory, 1);
@@ -240,13 +240,13 @@ void gameHandler::gameMenu()
 		break;
 	}
 }
-void gameHandler::createItem(string id, int stat, list<item*> &list)
+void gameHandler::createItem(string id, int stat, list<item*> &list)//creates an item and puts it in the player's inventory
 {
 	item *newItem = new item(id, stat);
 	list.push_back(newItem);
 	inventorySize++;
 }
-void gameHandler::createFood(string id, int boost, int qty, list<item*> &list)
+void gameHandler::createFood(string id, int boost, int qty, list<item*> &list)//creates a food and puts it in the player's inventory
 {
 	for (int i = 0; i < qty; i++)
 	{
@@ -256,13 +256,13 @@ void gameHandler::createFood(string id, int boost, int qty, list<item*> &list)
 		inventorySize++;
 	}
 }
-void gameHandler::createWeapon(string id, int dmg ,list<item*> &list)
+void gameHandler::createWeapon(string id, int dmg ,list<item*> &list)//creates a weapon and puts it in the player's inventory
 {
 	weapon *newItem = new weapon(id, dmg);
 	list.push_back(newItem);
 	inventorySize++;
 }
-void gameHandler::displayList(list<item*> &itemList, int key)
+void gameHandler::displayList(list<item*> &itemList, int key)//Displays any list that is passed as a param, as well as a key to tell where the list is being accessed from
 {
 		list<item*>::iterator it;
 		if (!itemList.empty())
@@ -293,9 +293,9 @@ void gameHandler::displayList(list<item*> &itemList, int key)
 		}
 }
 
-void gameHandler::gameInit()
+void gameHandler::gameInit()//Initializes game ( player, lists, gets playter name, and then goes to menu)
 {
-	list<item*> inventory;
+	list<item*> inventory;//creates lists that will later be populated
 	list<item*> eqipped;
 	selected = 0;
 	createPlayer();
@@ -316,13 +316,13 @@ void gameHandler::gameInit()
 	gameMenu();
 
 }
-void gameHandler::selectorMenu(list<item*> itemList, int key)
+void gameHandler::selectorMenu(list<item*> itemList, int key)//Creates and populates a menu for selection
 {
 	list<item*>::iterator it;
 	it = itemList.begin();
 	int listSize = 0;
 	system("CLS");
-	do
+	do//gets size of list
 	{
 		listSize++;
 		it++;
@@ -331,7 +331,7 @@ void gameHandler::selectorMenu(list<item*> itemList, int key)
 	place = new (nothrow) char[listSize];
 	for (int i = 0; i < listSize; i++)
 	{
-		if (i != selectorIndex)
+		if (i != selectorIndex)//displays a '-' if the item is currently not selected and '>' if it is
 			place[i] = '-';
 		else
 			place[i] = '>';
@@ -339,7 +339,7 @@ void gameHandler::selectorMenu(list<item*> itemList, int key)
 	int i = 0;
 	cout << "--INVENTORY ( Select Mode )--\n";
 	it = itemList.begin();
-	do
+	do//Prints the items and some information about the items
 	{
 		cout << place[i] << "\t|" << (*it)->id << "|" <<
 			(*it)->getStat() << (*it)->stat << "|" << endl;
@@ -347,7 +347,7 @@ void gameHandler::selectorMenu(list<item*> itemList, int key)
 		it++;
 	} while (it != itemList.end());
 
-	cout << "Use the following commands to navigate...\n"
+	cout << "Use the following commands to navigate...\n"//explains how to navigate
 		<< "\tw to move the selector up\n"
 		<< "\ts to move the selector down\n"
 		<< "\td to select an item\n"
@@ -388,28 +388,28 @@ void gameHandler::selectorMenu(list<item*> itemList, int key)
 
 	delete[] place;
 }
-void gameHandler::addtoEquipped(string id, item gameItem, list<item*> &equipped)
+void gameHandler::addtoEquipped(string id, item gameItem, list<item*> &equipped)//adds item to the equipped items list
 {
-	if (gameItem.useVal == 0) // Shows if the item is a weapon
+	if (gameItem.useVal == 0) // Shows if the item is a weapon/equipable
 	{
 		equipped.push_back(&gameItem);
 	}
 	else
 		cout << "This item is not equippable.\n";
 }
-void gameHandler::itemSelected(int selectorIndex, list<item*> itemList, int key)
+void gameHandler::itemSelected(int selectorIndex, list<item*> itemList, int key)//Displays the item you have selected, as well as some information about it
 {
 	int index = 0;
 	list<item*>::iterator it;
-	it = itemList.begin();
-	while (index < selectorIndex)
+	it = itemList.begin();//places iterator at the beginning of the list
+	while (index < selectorIndex)//moves ther iterator to the position you have selected
 	{
 		index++;
 		it++;
 	}
 	cout << "You have chosen: " << (*it)->id << endl
 		<< "\t" << (*it)->getStat() << (*it)->stat; 
-	if ((*it)->useVal == 0)
+	if ((*it)->useVal == 0)//checks if the item is equipable, and if so, allows for one to equip it
 	{
 		item *itemPointer = *it;
 		cout << "\nWould you like to equip this item? ( Y or N )\n";
@@ -420,5 +420,5 @@ void gameHandler::itemSelected(int selectorIndex, list<item*> itemList, int key)
 		}
 	}
 	_getch();
-	selectorMenu(itemList, key);
+	selectorMenu(itemList, key);//back to selector menu
 }
